@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+}
+.image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 80vh; */
+    flex: 1;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+.dot, .hover-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+.hover-dot {
+    background-color: blue;
+    opacity: 0.5;
+}
+.coordinates {
+    padding: 10px;
+    flex: 1;
+}
+.undo-button {
+    margin-top: 10px;
+}
+.clear-button {
+    margin-left: 10px;
+}
+.delete-button {
+    margin-left: 10px;
+}
+.object-select {
+    margin-top: 10px;
+}

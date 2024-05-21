@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Image</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+</head>
+<body>
+    <h1>Click on the Image</h1>
+    <div class="container">
+        <div class="image-container">
+            <img id="image" src="{{ image.image.url }}">
+        </div>
+        <div class="coordinates">
+            <h2>Clicked Coordinates</h2>
+            <select id="object-select" class="object-select"></select>
+            <button id="add-object-button" class="add-object-button">Add Object</button>
+            <button id="clear-button" class="clear-button">Clear All</button>
+            <ul id="coordinates-list"></ul>
+            <button id="remove-object-button">Remove Object</button>
+            <button id="edit-object-button">Edit Object</button>
+            <br>
+            <button id="undo-button" class="undo-button">Undo</button>
+            <button id="export-button">Export Annotation</button>
+            <button id="segment-button">Segment</button>
+        </div>
+    </div>
+    <script src="../static/js/script.js"></script>
+</body>
+</html>
