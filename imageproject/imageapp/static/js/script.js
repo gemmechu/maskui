@@ -7,16 +7,58 @@ document.addEventListener("DOMContentLoaded", function() {
     var currentObject = "Object1";
     var objectColors = ["red", "green", "blue", "yellow", "orange", "purple"];
     var colorIndex = 0;
-
+    
     document.getElementById("segment-button").addEventListener("click", function() {
-        var imageUrl = "/Users/gemmechu/Desktop/Picture1.png";
-        
-        // Save the previous image to allow switching
-        previousImages.push(img.src);
-        
-        // Show the new image
-        img.src = imageUrl;
+        // Gather all coordinates for the current object
+        var coordinates = objectList[currentObject].dots.map(function(dot) {
+            return {
+                x: parseInt(dot.dataset.x),
+                y: parseInt(dot.dataset.y)
+            };
+        });
+    
+        // Send the coordinates to the Django server
+        fetch("/segment/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie('csrftoken')  // Ensure you send the CSRF token
+            },
+            body: JSON.stringify({
+                object: currentObject,
+                coordinates: coordinates
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // Update the image source with the new image path
+                var mask = document.getElementById("mask");
+                mask.src = data.image_path;
+            } else {
+                console.error("Error:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
     });
+    
+    // Function to get the CSRF token from the cookie
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
     
     function updateObjectList() {
         var objectSelect = document.getElementById("object-select");
@@ -49,11 +91,27 @@ document.addEventListener("DOMContentLoaded", function() {
                     });
                     li.appendChild(deleteButton);
                     coordinatesList.appendChild(li);
+
+                    // Add hover event listeners
+                    li.addEventListener("mouseenter", function() {
+                        highlightDot(dot);
+                    });
+                    li.addEventListener("mouseleave", function() {
+                        removeHighlight(dot);
+                    });
                 }
             });
         }
     }
+    function highlightDot(dot) {
+        dot.style.transform = "scale(1.5)";
+        dot.style.border = "2px solid black";
+    }
 
+    function removeHighlight(dot) {
+        dot.style.transform = "";
+        dot.style.border = "";
+    }
     function addNewObject(objectName) {
         if (!objectList[objectName]) {
             objectList[objectName] = {

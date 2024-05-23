@@ -122,3 +122,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 FILE_UPLOAD_HANDLERS = [
     'django.core.files.uploadhandler.TemporaryFileUploadHandler',
 ]
+# Add another directory for other images
+ADDITIONAL_MEDIA_DIR = '/Users'  # Change this to your directory
+ADDITIONAL_MEDIA_URL = '/Users/'

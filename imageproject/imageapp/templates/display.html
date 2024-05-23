@@ -8,7 +8,8 @@
     <h1>Click on the Image</h1>
     <div class="container">
         <div class="image-container">
-            <img id="image" src="{{ image.image.url }}">
+            <img id="image" src="{{ image.image.url }}" class="stacked-image">
+            <img id="mask" src="" class="stacked-image" style="opacity: 0.5;">
         </div>
         <div class="coordinates">
             <h2>Clicked Coordinates</h2>
@@ -24,6 +25,9 @@
             <button id="segment-button">Segment</button>
         </div>
     </div>
+    <script type="text/javascript">
+        var csrf_token = '{{ csrf_token }}';
+    </script>
     <script src="../static/js/script.js"></script>
 </body>
 </html>
