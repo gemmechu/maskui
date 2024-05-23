@@ -7,14 +7,8 @@ import json
 
 
 def upload_image(request):
-    if request.method == 'POST':
-        form = ImageUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('display_image')
-    else:
-        form = ImageUploadForm()
-    return render(request, 'upload.html', {'form': form})
+
+    return render(request, 'upload.html')
 
 
 @csrf_exempt
@@ -38,5 +32,9 @@ def segment_view(request):
 
 
 def display_image(request):
-    image = UploadedImage.objects.latest('uploaded_at')
-    return render(request, 'display.html', {'image': image})
+    # image = UploadedImage.objects.latest('uploaded_at')
+    # image_path = '/Users/gemmechu/Desktop/test/0013.png'
+    image_path = request.POST.get('image_path')
+    if image_path != "":
+        return render(request, 'display.html', {'image_path': image_path})
+    return render(request, 'upload.html')

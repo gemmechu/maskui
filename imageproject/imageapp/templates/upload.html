@@ -5,9 +5,14 @@
 </head>
 <body>
     <h1>Upload Image</h1>
-    <form method="post" enctype="multipart/form-data">
+    <!-- <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form> -->
+    <form method="post" action="{% url 'display_image' %}">
+        {% csrf_token %}
+        <input type="text" name="image_path" id="image_path" placeholder="Enter Image Path">
         <button type="submit">Upload</button>
     </form>
 </body>
