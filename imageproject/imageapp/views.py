@@ -32,8 +32,7 @@ def segment_view(request):
 
 
 def display_image(request):
-    # image = UploadedImage.objects.latest('uploaded_at')
-    # image_path = '/Users/gemmechu/Desktop/test/0013.png'
+    
     image_path = request.POST.get('image_path')
     if image_path != "":
         return render(request, 'display.html', {'image_path': image_path})

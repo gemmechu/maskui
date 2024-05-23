@@ -2,18 +2,20 @@
 <html>
 <head>
     <title>Upload Image</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/styles_home.css">
 </head>
 <body>
     <h1>Upload Image</h1>
-    <!-- <form method="post" enctype="multipart/form-data">
+
+    <div id="drop_zone" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <p>Drag and drop an image file here, or click to select</p>
+    </div>
+
+    <form method="post" action="{% url 'display_image' %}" id="upload_form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Upload</button>
-    </form> -->
-    <form method="post" action="{% url 'display_image' %}">
-        {% csrf_token %}
-        <input type="text" name="image_path" id="image_path" placeholder="Enter Image Path">
-        <button type="submit">Upload</button>
+        <input type="hidden" name="image_path" id="image_path" value="">
+        <!-- <button type="submit">Upload</button> -->
     </form>
+    <script src="../static/js/scripts_home.js"></script>
 </body>
 </html>
